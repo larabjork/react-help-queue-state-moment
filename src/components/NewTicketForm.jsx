@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 } from 'uuid';
+import { Link } from 'react-router-dom';
 
 function NewTicketForm(props){
   let _names = null;
@@ -8,15 +10,16 @@ function NewTicketForm(props){
 
   function handleNewTicketFormSubmission(event) {
     event.preventDefault();
-    props.onNewTicketCreation({names: _names.value, location: _location.value, issue: _issue.value});
+    props.onNewTicketCreation({names: _names.value, location: _location.value, issue: _issue.value, id: v4()});
     _names.value = '';
     _location.value = '';
     _issue.value = '';
+    history.push(`/`)
   }
 
   return (
     <div>
-    <form onSubmit={handleNewTicketFormSubmission}>
+    <form onSubmit={handleNewTicketFormSubmission} action="/">
     <input
     type='text'
     id='names'
