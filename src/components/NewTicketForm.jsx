@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 } from 'uuid';
 import { Link } from 'react-router-dom';
+import Moment from 'moment';
 
 function NewTicketForm(props){
   let _names = null;
@@ -10,32 +11,32 @@ function NewTicketForm(props){
 
   function handleNewTicketFormSubmission(event) {
     event.preventDefault();
-    props.onNewTicketCreation({names: _names.value, location: _location.value, issue: _issue.value, id: v4()});
+    props.onNewTicketCreation({names: _names.value, location: _location.value, issue: _issue.value, id: v4(), timeOpen: new Moment()});
     _names.value = '';
     _location.value = '';
     _issue.value = '';
-    history.push(`/`)
+    history.push('/');
   }
 
   return (
     <div>
-    <form onSubmit={handleNewTicketFormSubmission} action="/">
-    <input
-    type='text'
-    id='names'
-    placeholder='Pair Names'
-    ref={(input) => {_names = input;}}/>
-    <input
-    type='text'
-    id='location'
-    placeholder='Location'
-    ref={(input) => {_location = input;}}/>
-    <textarea
-    id='issue'
-    placeholder='Describe your issue.'
-    ref={(textarea) => {_issue = textarea;}}/>
-    <button type='submit'>Help!</button>
-    </form>
+      <form onSubmit={handleNewTicketFormSubmission} action="/">
+        <input
+          type='text'
+          id='names'
+          placeholder='Pair Names'
+          ref={(input) => {_names = input;}}/>
+        <input
+          type='text'
+          id='location'
+          placeholder='Location'
+          ref={(input) => {_location = input;}}/>
+        <textarea
+          id='issue'
+          placeholder='Describe your issue.'
+          ref={(textarea) => {_issue = textarea;}}/>
+        <button type='submit'>Help!</button>
+      </form>
     </div>
   );
 }
